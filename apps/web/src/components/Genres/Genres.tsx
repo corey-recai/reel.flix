@@ -1,10 +1,10 @@
 import React from "react";
 
-export const Movies = () => {
+export const Genres = () => {
   return (
     <>
       <div className='text-center'>
-        <h2>Movies</h2>
+        <h2>Genres</h2>
         <hr />
       </div>
     </>

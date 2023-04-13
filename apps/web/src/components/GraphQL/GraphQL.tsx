@@ -1,10 +1,10 @@
 import React from "react";
 
-export const Movies = () => {
+export const GraphQL = () => {
   return (
     <>
       <div className='text-center'>
-        <h2>Movies</h2>
+        <h2>GraphQL</h2>
         <hr />
       </div>
     </>
