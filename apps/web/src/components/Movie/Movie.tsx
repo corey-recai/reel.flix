@@ -3,7 +3,7 @@ import React from "react";
 export const Movie = () => {
   return (
     <>
-      <div className='text-center'>
+      <div>
         <h2>Movie</h2>
         <hr />
       </div>
