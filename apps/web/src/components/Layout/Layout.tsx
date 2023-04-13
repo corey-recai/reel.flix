@@ -13,7 +13,7 @@ export const Layout = ({ children }) => {
         {/* end col 1 */}
         {/* begin col 2  */}
         <div className='col text-end'>
-          <Link href='#!'>
+          <Link href='/login'>
             <span className='badge bg-success'>Login</span>
           </Link>
         </div>
@@ -42,17 +42,17 @@ export const Layout = ({ children }) => {
                 Genres
               </Link>
               <Link
-                href='/admin/movie/0'
+                href='/admin/movie'
                 className='list-group-item list-group-item-action'>
                 Add Movie
               </Link>
               <Link
-                href='/admin'
+                href='/admin/manage-catalogue'
                 className='list-group-item list-group-item-action'>
                 Manage Catalogue
               </Link>
               <Link
-                href='/graphql'
+                href='/admin/graphql'
                 className='list-group-item list-group-item-action'>
                 GraphQL
               </Link>
