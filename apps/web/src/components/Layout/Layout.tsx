@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 export const Layout = ({ children }) => {
+  const [jwtToken, setJwtToken] = useState("");
+
   return (
     <div className='container'>
       {/* begin row 1 */}
@@ -13,9 +15,15 @@ export const Layout = ({ children }) => {
         {/* end col 1 */}
         {/* begin col 2  */}
         <div className='col text-end'>
-          <Link href='/login'>
-            <span className='badge bg-success'>Login</span>
-          </Link>
+          {jwtToken === "" ? (
+            <Link href='/login'>
+              <span className='badge bg-success'>Login</span>
+            </Link>
+          ) : (
+            <Link href='#!'>
+              <span className='badge bg-danger'>Logout</span>
+            </Link>
+          )}
         </div>
         {/* end col 2 */}
         <hr className='mb-3' />
@@ -41,21 +49,25 @@ export const Layout = ({ children }) => {
                 className='list-group-item list-group-item-action'>
                 Genres
               </Link>
-              <Link
-                href='/admin/movie'
-                className='list-group-item list-group-item-action'>
-                Add Movie
-              </Link>
-              <Link
-                href='/admin/manage-catalogue'
-                className='list-group-item list-group-item-action'>
-                Manage Catalogue
-              </Link>
-              <Link
-                href='/admin/graphql'
-                className='list-group-item list-group-item-action'>
-                GraphQL
-              </Link>
+              {jwtToken !== "" && (
+                <>
+                  <Link
+                    href='/admin/movie'
+                    className='list-group-item list-group-item-action'>
+                    Add Movie
+                  </Link>
+                  <Link
+                    href='/admin/manage-catalogue'
+                    className='list-group-item list-group-item-action'>
+                    Manage Catalogue
+                  </Link>
+                  <Link
+                    href='/admin/graphql'
+                    className='list-group-item list-group-item-action'>
+                    GraphQL
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>

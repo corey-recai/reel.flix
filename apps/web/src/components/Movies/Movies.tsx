@@ -57,6 +57,7 @@ export const Movies = () => {
     ];
     setMovies(moviesList);
   }, []);
+
   return (
     <>
       <div>
