@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Ticket from "../../images/movie_tickets.jpg";
+import Ticket from "../../assets/images/movie_tickets.jpg";
 
 export const Home = () => {
   return (

@@ -6,7 +6,7 @@ interface Props {
   title: string;
   className: string;
   placeholder?: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  // onChange: ChangeEventHandler<HTMLInputElement>;
   autoComplete: string;
   value?: string;
   errorDiv?: string;
@@ -21,7 +21,7 @@ export const Input = forwardRef(
       title,
       className,
       placeholder,
-      onChange,
+      // onChange,
       autoComplete,
       value,
       errorDiv,
@@ -41,7 +41,7 @@ export const Input = forwardRef(
           ref={ref}
           name={name}
           placeholder={placeholder}
-          onChange={onChange}
+          // onChange={onChange}
           autoComplete={autoComplete}
           value={value}
         />

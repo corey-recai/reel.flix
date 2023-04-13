@@ -1,17 +1,32 @@
 import React, { RefObject, useRef } from "react";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+
+import { login } from "../../store/auth";
+import { setAlert, clearAlert } from "../../store/log";
+
 import { Input } from "../Form/Input/Input";
 
 export const Login = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const emailRef: RefObject<HTMLInputElement> | null = useRef(null);
   const passwordRef: RefObject<HTMLInputElement> | null = useRef(null);
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
+    console.log("Email", emailRef.current.value);
+    console.log("Password", passwordRef.current.value);
 
     if (emailRef.current.value === "admin@example.com") {
-      return;
+      dispatch(login("abc123"));
+      dispatch(clearAlert());
+      router.push("/");
+    } else {
+      dispatch(
+        setAlert({ message: "Invalid credentials", className: "alert-danger" })
+      );
     }
   };
   return (
@@ -27,7 +42,7 @@ export const Login = () => {
             name='email'
             autoComplete='email-new'
             ref={emailRef}
-            onChange={e => console.log(emailRef.current?.value)}
+            // onChange={e => console.log(emailRef.current?.value)}
           />
 
           <Input
@@ -37,8 +52,10 @@ export const Login = () => {
             name='password'
             autoComplete='password-new'
             ref={passwordRef}
-            onChange={e => console.log(passwordRef.current?.value)}
+            // onChange={e => console.log(passwordRef.current?.value)}
           />
+          <hr />
+          <input type='submit' className='btn btn-primary' value='Login' />
         </form>
       </div>
     </>

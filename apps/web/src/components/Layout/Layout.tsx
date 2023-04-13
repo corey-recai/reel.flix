@@ -1,8 +1,19 @@
-import React, { useState } from "react";
 import Link from "next/link";
+import React from "react";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+
+import { logout } from "../../store/auth";
+
+import type { RootState } from "../../store";
+import { Alert } from "../Alert";
 
 export const Layout = ({ children }) => {
-  const [jwtToken, setJwtToken] = useState("");
+  const router = useRouter();
+  const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
+  const dispatch = useDispatch();
+
+  console.info(jwtToken);
 
   return (
     <div className='container'>
@@ -20,9 +31,14 @@ export const Layout = ({ children }) => {
               <span className='badge bg-success'>Login</span>
             </Link>
           ) : (
-            <Link href='#!'>
-              <span className='badge bg-danger'>Logout</span>
-            </Link>
+            <button
+              className='btn badge bg-danger'
+              onClick={() => {
+                dispatch(logout());
+                router.push("/login");
+              }}>
+              Logout
+            </button>
           )}
         </div>
         {/* end col 2 */}
@@ -73,7 +89,10 @@ export const Layout = ({ children }) => {
         </div>
         {/* end col 1 */}
         {/* begin col 2 */}
-        <div className='col-md-10'>{children}</div>
+        <div className='col-md-10'>
+          <Alert />
+          {children}
+        </div>
         {/* end col 2 */}
       </div>
       {/* end row 2 */}
