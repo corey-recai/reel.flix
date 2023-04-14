@@ -1,0 +1,11 @@
+{
+  "name": "reel.flix-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "go run cmd/api/main.go",
+    "build": "",
+    "start": "",
+    "lint": ""
+  }
+}
