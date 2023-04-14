@@ -1,11 +1,13 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
 	"fmt"
 	"log"
 	"net/http"
+
+	"reel.flix-api/repository"
+	"reel.flix-api/repository/dbrepo"
 )
 
 const port = 8080
@@ -13,7 +15,7 @@ const port = 8080
 type application struct {
 	DSN    string
 	Domain string
-	DB     *sql.DB
+	DB     repository.DatabaseRepo
 }
 
 func main() {
@@ -29,7 +31,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	app.DB = conn
+	app.DB = &dbrepo.PostgresDBRepo{DB: conn}
+
+	// close connection beofre application exsits
+	defer app.DB.Connection().Close()
 
 	app.Domain = "example.com"
 
