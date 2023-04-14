@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"reel.flix-api/src/models"
+	"reel.flix-api/models"
 )
 
 func (app *application) Home(w http.ResponseWriter, r *http.Request) {

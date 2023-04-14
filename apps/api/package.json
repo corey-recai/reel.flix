@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "go run ./src/api",
+    "dev": "cd ./src && go run ./api",
     "build": "",
     "start": "",
     "lint": ""
