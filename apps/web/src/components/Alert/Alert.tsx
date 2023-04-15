@@ -10,8 +10,6 @@ export const Alert = () => {
     (state: RootState) => state.log.alert as LogState["alert"]
   );
 
-  console.warn("Alert Message", message);
-  console.warn("Alert className", className);
   return (
     <>
       <div className={`alert ${className}`} role='alert'>

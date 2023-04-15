@@ -16,19 +16,46 @@ export const Login = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log("Email", emailRef.current.value);
-    console.log("Password", passwordRef.current.value);
 
-    if (emailRef.current.value === "admin@example.com") {
-      dispatch(login("abc123"));
-      dispatch(clearAlert());
-      router.push("/");
-    } else {
-      dispatch(
-        setAlert({ message: "Invalid credentials", className: "alert-danger" })
-      );
-    }
+    // build request payload
+    const payload = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    const requestOptions: RequestInit = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(payload),
+    };
+
+    fetch("http://localhost:8080/authenticate", requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          dispatch(
+            setAlert({
+              message: data.message,
+              className: "alert-danger",
+            })
+          );
+        } else {
+          dispatch(login(data.access_token));
+          dispatch(clearAlert());
+          router.push("/");
+        }
+      })
+      .catch(error => {
+        dispatch(
+          setAlert({
+            message: error.message,
+            className: "alert-danger",
+          })
+        );
+      });
   };
+
   return (
     <>
       <div className='col-md-6 offset-md-3'>
