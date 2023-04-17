@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,6 +14,11 @@ export const Layout = ({ children }) => {
   const dispatch = useDispatch();
 
   console.info(jwtToken);
+
+  useEffect(() => {
+    if (jwtToken === "") {
+    }
+  }, []);
 
   return (
     <div className='container'>

@@ -9,14 +9,15 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 
 import authReducer from "./auth";
 import logReducer from "./log";
 
 const authPersistConfig = {
   key: "auth",
-  storage: storage,
+  storage: storageSession,
   whitelist: ["jwtToken"],
   blacklist: ["alert"],
 };

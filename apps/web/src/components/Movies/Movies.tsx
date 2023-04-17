@@ -1,4 +1,3 @@
-import { headers } from "next/dist/client/components/headers";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
