@@ -54,7 +54,7 @@ func main() {
 		TokenExpiry:   time.Minute * 15,
 		RefreshExpiry: time.Hour * 24,
 		CookiePath:    "/",
-		CookieName:    "__Host-refrest_token",
+		CookieName:    "__jwt-refresh_token",
 		CookieDomain:  app.CookieDomain,
 	}
 
