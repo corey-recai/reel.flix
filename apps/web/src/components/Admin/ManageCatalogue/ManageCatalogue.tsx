@@ -1,12 +1,14 @@
-import React from "react";
+import { Component } from "solid-js";
 
-export const ManageCatalogue = () => {
+const ManageCatalogue: Component = () => {
   return (
     <>
-      <div className='text-center'>
+      <div class='text-center'>
         <h2>ManageCatalogue</h2>
         <hr />
       </div>
     </>
   );
 };
+
+export default ManageCatalogue;

@@ -1,8 +1,12 @@
-import { Genres } from "../../src/components/Genres";
-export default function Index() {
+import { Component } from "solid-js";
+import Genres from "@components/Genres";
+
+const Index: Component = () => {
   return (
     <>
       <Genres />
     </>
   );
-}
+};
+
+export default Index;

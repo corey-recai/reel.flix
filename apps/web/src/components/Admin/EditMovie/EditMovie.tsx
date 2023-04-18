@@ -1,12 +1,14 @@
-import React from "react";
+import { Component } from "solid-js";
 
-export const EditMovie = () => {
+const EditMovie: Component = () => {
   return (
     <>
-      <div className='text-center'>
+      <div class='text-center'>
         <h2>EditMovie</h2>
         <hr />
       </div>
     </>
   );
 };
+
+export default EditMovie;

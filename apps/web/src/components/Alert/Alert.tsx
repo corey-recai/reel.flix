@@ -1,19 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import { Component } from "solid-js";
 
-import type { LogState } from "../../store/log";
+import { useAppContext } from "@store";
 
-import type { RootState } from "../../store";
-
-export const Alert = () => {
-  const { message, className } = useSelector(
-    (state: RootState) => state.log.alert as LogState["alert"]
-  );
+export const Alert: Component = () => {
+  const [state, _] = useAppContext();
 
   return (
     <>
-      <div className={`alert ${className}`} role='alert'>
-        {message}
+      <div class={`alert ${state.log.alert.display}`} role='alert'>
+        {state.log.alert.message}
       </div>
     </>
   );

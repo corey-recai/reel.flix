@@ -1,10 +1,12 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { Component, createSignal, For, onMount } from "solid-js";
+import { A } from "@solidjs/router";
 
-export const Movies = () => {
-  const [movies, setMovies] = useState([]);
+import type { Movie } from "@interfaces";
 
-  useEffect(() => {
+const Movies: Component = () => {
+  const [movies, setMovies] = createSignal<Movie[]>([]);
+
+  onMount(() => {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
@@ -21,14 +23,14 @@ export const Movies = () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  });
 
   return (
     <>
       <div>
         <h2>Movies</h2>
         <hr />
-        <table className='table table-stripped table-hover'>
+        <table class='table table-stripped table-hover'>
           <thead>
             <tr>
               <th>Movie</th>
@@ -37,18 +39,22 @@ export const Movies = () => {
             </tr>
           </thead>
           <tbody>
-            {movies.map(movie => (
-              <tr key={movie.id}>
-                <td>
-                  <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-                </td>
-                <td>{movie.release_date}</td>
-                <td>{movie.mpaa_rating}</td>
-              </tr>
-            ))}
+            <For each={movies()}>
+              {movie => (
+                <tr>
+                  <td>
+                    <A href={`/movies/${movie.id}`}>{movie.title}</A>
+                  </td>
+                  <td>{movie.release_date}</td>
+                  <td>{movie.mpaa_rating}</td>
+                </tr>
+              )}
+            </For>
           </tbody>
         </table>
       </div>
     </>
   );
 };
+
+export default Movies;

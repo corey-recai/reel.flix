@@ -1,92 +1,95 @@
-import Link from "next/link";
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import type { Component } from "solid-js";
 
-import { logout } from "../../store/auth";
+import { Outlet, A, useNavigate } from "@solidjs/router";
 
-import type { RootState } from "../../store";
-import { Alert } from "../Alert";
+import { Alert } from "@components/Alert";
 
-export const Layout = ({ children }) => {
-  const router = useRouter();
-  const jwtToken = useSelector((state: RootState) => state.auth.jwtToken);
-  const dispatch = useDispatch();
+import { useAppContext } from "@store";
 
-  console.info(jwtToken);
+const Layout: Component = () => {
+  const navigate = useNavigate();
+  const [state, { logout }] = useAppContext();
 
-  useEffect(() => {
-    if (jwtToken === "") {
-    }
-  }, []);
-
+  // useEffect(() => {
+  //   if (jwtToken === "") {
+  //   }
+  // }, []);
   return (
-    <div className='container'>
+    <div class='container'>
       {/* begin row 1 */}
-      <div className='row'>
+      <div class='row'>
         {/* begin col 1 */}
-        <div className='col'>
-          <h1 className='mt-3'>Go Watch a Movie!</h1>
+        <div class='col'>
+          <h1 class='mt-3'>Go Watch a Movie!</h1>
         </div>
         {/* end col 1 */}
         {/* begin col 2  */}
-        <div className='col text-end'>
-          {jwtToken === "" ? (
-            <Link href='/login'>
-              <span className='badge bg-success'>Login</span>
-            </Link>
+        <div class='col text-end'>
+          {state.auth.jwtToken === "" ? (
+            <A href='/login'>
+              <span class='badge bg-success'>Login</span>
+            </A>
           ) : (
             <button
-              className='btn badge bg-danger'
+              class='btn badge bg-danger'
               onClick={() => {
-                dispatch(logout());
-                router.push("/login");
+                logout!();
+                navigate("/login", { replace: true });
+                console.log("logged out");
               }}>
               Logout
             </button>
           )}
         </div>
         {/* end col 2 */}
-        <hr className='mb-3' />
+        <hr class='mb-3' />
       </div>
       {/* end row 1 */}
 
       {/* begin row 2 */}
-      <div className='row'>
+      <div class='row'>
         {/* begin col 1 */}
-        <div className='col-md-2'>
+        <div class='col-md-2'>
           <nav>
-            <div className='list-group'>
-              <Link href='/' className='list-group-item list-group-item-action'>
+            <div class='list-group'>
+              <A
+                href='/'
+                class='list-group-item list-group-item-action'
+                end={true}>
                 Home
-              </Link>
-              <Link
+              </A>
+              <A
                 href='/movies'
-                className='list-group-item list-group-item-action'>
+                class='list-group-item list-group-item-action'
+                end={false}>
                 Movies
-              </Link>
-              <Link
+              </A>
+              <A
                 href='/genres'
-                className='list-group-item list-group-item-action'>
+                class='list-group-item list-group-item-action'
+                end={true}>
                 Genres
-              </Link>
-              {jwtToken !== "" && (
+              </A>
+              {state.auth.jwtToken !== "" && (
                 <>
-                  <Link
+                  <A
                     href='/admin/movie'
-                    className='list-group-item list-group-item-action'>
+                    class='list-group-item list-group-item-action'
+                    end={true}>
                     Add Movie
-                  </Link>
-                  <Link
+                  </A>
+                  <A
                     href='/admin/manage-catalogue'
-                    className='list-group-item list-group-item-action'>
+                    class='list-group-item list-group-item-action'
+                    end={true}>
                     Manage Catalogue
-                  </Link>
-                  <Link
+                  </A>
+                  <A
                     href='/admin/graphql'
-                    className='list-group-item list-group-item-action'>
+                    class='list-group-item list-group-item-action'
+                    end={true}>
                     GraphQL
-                  </Link>
+                  </A>
                 </>
               )}
             </div>
@@ -94,9 +97,9 @@ export const Layout = ({ children }) => {
         </div>
         {/* end col 1 */}
         {/* begin col 2 */}
-        <div className='col-md-10'>
+        <div class='col-md-10'>
           <Alert />
-          {children}
+          <Outlet />
         </div>
         {/* end col 2 */}
       </div>
@@ -104,3 +107,5 @@ export const Layout = ({ children }) => {
     </div>
   );
 };
+
+export default Layout;

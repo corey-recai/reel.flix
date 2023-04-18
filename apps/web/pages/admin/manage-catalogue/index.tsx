@@ -1,9 +1,12 @@
-import { ManageCatalogue } from "../../../src/components/Admin/ManageCatalogue";
+import ManageCatalogue from "@components/Admin/ManageCatalogue";
+import { Component } from "solid-js";
 
-export default function Index() {
+const Index: Component = () => {
   return (
     <>
       <ManageCatalogue />
     </>
   );
-}
+};
+
+export default Index;

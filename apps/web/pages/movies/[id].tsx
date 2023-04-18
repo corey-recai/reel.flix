@@ -1,12 +1,15 @@
-import { useRouter } from "next/router";
-import { Movie } from "../../src/components/Movie";
+import { Component } from "solid-js";
+import { useParams } from "@solidjs/router";
 
-export default function Index() {
-  const router = useRouter();
-  const { id } = router.query;
+import Movie from "@components/Movie";
+
+const Index: Component = () => {
+  const { id } = useParams();
   return (
     <>
-      <Movie id={id} />
+      <Movie id={id as unknown as number} />
     </>
   );
-}
+};
+
+export default Index;

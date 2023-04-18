@@ -1,1 +1,1 @@
-export * from "./ManageCatalogue";
+export { default } from "./ManageCatalogue";

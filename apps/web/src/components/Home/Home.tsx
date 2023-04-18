@@ -1,14 +1,15 @@
-import React from "react";
-import Image from "next/image";
+import { Component } from "solid-js";
 import Ticket from "../../assets/images/movie_tickets.jpg";
 
-export const Home = () => {
+const Home: Component = () => {
   return (
     <>
-      <div className='text-center'>
+      <div class='text-center'>
         <h2>Find a movie to watch tonight</h2>
-        <Image src={Ticket} alt='movie ticket' />
+        <img src={Ticket} alt='movie ticket' />
       </div>
     </>
   );
 };
+
+export default Home;

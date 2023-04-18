@@ -1,26 +1,25 @@
-import React, { RefObject, useRef } from "react";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { Component } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 
-import { login } from "../../store/auth";
-import { setAlert, clearAlert } from "../../store/log";
+import { Input } from "@components/Form/Input/Input";
 
-import { Input } from "../Form/Input/Input";
+import { useAppContext } from "@store";
 
-export const Login = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
+const Login: Component = () => {
+  const navigate = useNavigate();
 
-  const emailRef: RefObject<HTMLInputElement> | null = useRef(null);
-  const passwordRef: RefObject<HTMLInputElement> | null = useRef(null);
+  const [_, { login, setAlert, clearAlert }] = useAppContext();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
+
+    console.log("email", (e.target as HTMLFormElement)["email"].value);
+    console.log("password", (e.target as HTMLFormElement)["password"].value);
 
     // build request payload
     const payload = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      email: (e.target as HTMLFormElement)["email"].value,
+      password: (e.target as HTMLFormElement)["password"].value,
     };
 
     const requestOptions: RequestInit = {
@@ -34,31 +33,31 @@ export const Login = () => {
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          dispatch(
-            setAlert({
-              message: data.message,
-              className: "alert-danger",
-            })
-          );
+          setAlert!({
+            message: data.message,
+            display: "alert-danger",
+          });
+          // console.log(data.message);
         } else {
-          dispatch(login(data.access_token));
-          dispatch(clearAlert());
-          router.push("/");
+          login!(data.access_token);
+          clearAlert!();
+          navigate("/", { replace: true });
+          // console.log(data.access_token);
         }
       })
       .catch(error => {
-        dispatch(
-          setAlert({
-            message: error.message,
-            className: "alert-danger",
-          })
-        );
+        setAlert!({
+          message: error.message,
+          display: "alert-danger",
+        });
+
+        // console.log(error.message);
       });
   };
 
   return (
     <>
-      <div className='col-md-6 offset-md-3'>
+      <div class='col-md-6 offset-md-3'>
         <h2>Login</h2>
         <hr />
         <form onSubmit={handleSubmit}>
@@ -68,8 +67,6 @@ export const Login = () => {
             className='form-control'
             name='email'
             autoComplete='email-new'
-            ref={emailRef}
-            // onChange={e => console.log(emailRef.current?.value)}
           />
 
           <Input
@@ -78,13 +75,13 @@ export const Login = () => {
             className='form-control'
             name='password'
             autoComplete='password-new'
-            ref={passwordRef}
-            // onChange={e => console.log(passwordRef.current?.value)}
           />
           <hr />
-          <input type='submit' className='btn btn-primary' value='Login' />
+          <input type='submit' class='btn btn-primary' value='Login' />
         </form>
       </div>
     </>
   );
 };
+
+export default Login;

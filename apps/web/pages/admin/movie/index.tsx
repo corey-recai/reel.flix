@@ -1,4 +1,4 @@
-import { EditMovie } from "../../../src/components/Admin/EditMovie";
+import EditMovie from "@components/Admin/EditMovie";
 
 export default function Index() {
   return (

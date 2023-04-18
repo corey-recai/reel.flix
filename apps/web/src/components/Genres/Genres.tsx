@@ -1,12 +1,14 @@
-import React from "react";
+import { Component } from "solid-js";
 
-export const Genres = () => {
+const Genres = () => {
   return (
     <>
-      <div className='text-center'>
+      <div class='text-center'>
         <h2>Genres</h2>
         <hr />
       </div>
     </>
   );
 };
+
+export default Genres;
